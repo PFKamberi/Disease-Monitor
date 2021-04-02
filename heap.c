@@ -10,8 +10,6 @@ heap* heap_init(){
     h->last = NULL;
 }
 
-
-
 void heap_insert(heap* h, char* key, int count){
     
      hnode* node = malloc(sizeof(hnode));
@@ -150,9 +148,6 @@ void  move_up(heap *h, hnode *n){
     }
       
 }
-
-
-
 
 
 void replace_node (heap *h, hnode *d, hnode *s){
@@ -303,36 +298,3 @@ void free_heap(hnode* h){
 
 
 hnode * get_first(heap *h){ return h->root; }
-
-/*int main(){
-    
-    heap* h  = heap_init();
-    heap_insert(h,"a",8);
-    heap_insert(h,"b",7);
-    heap_insert(h,"c",6);
-    heap_insert(h,"d",4);
-    heap_insert(h,"e",5);
-    heap_insert(h,"f",3);
-    heap_insert(h,"g",0);
-    heap_insert(h,"h",1);
-    print_heap(h->root,0);
-
-    for(int i = 0; i < 8; i++){
-        printf("%s\n", "********");
-        printf("%s %d\n", h->root->key, h->root->count );
-        print_heap(h->root,0);
-        heap_remove(h,h->root);
-        
-        printf("%s\n", "********");
-    }
-
-
-
-    printf("%s\n", "**********");
-    free_heap(h->root);
-    free(h);
-
-
-    return 0;
-}
-*/
