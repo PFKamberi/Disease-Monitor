@@ -96,11 +96,6 @@ int get_recordID(Record* record) {
 	return atoi(record->recordID); }
 
 int datecmp(Record record1, Record record2){ 
-	
-	/*if record1.entryDate == record1.entryDate return 0
-  	  if record1.entryDate > record1.entryDate return >0
-  	  if record1.entryDate < record1.entryDate return < 0
-	*/
 
 	char* entry1 = NULL;
 	char* entry2 = NULL;
