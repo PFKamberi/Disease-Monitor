@@ -10,7 +10,6 @@
 struct ht_bucket{
     int count; // numberof bucket entries
     void* bucket; //bucket memory for storing entries
-    //struct ht_bucket* next;
 };
 
 typedef struct ht_bucket ht_bucket;
