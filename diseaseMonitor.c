@@ -39,11 +39,6 @@ int main(int argc, char* argv[]){
 			countryHashtableNumOfEntries = atoi(argv[++i]);
 		}else if(strcmp(argv[i],"-b") == 0){
 			bucketSize = atoi(argv[++i]);
-			/*if(bucketSize < sizeof(Entry) + sizeof(ht_bucket**))// =24
-			{
-				perror("Too small bucket size");
-				exit(EXIT_FAILURE);
-			}*/
 		}
 		else{
 			perror("Command line arguements error");
@@ -88,7 +83,7 @@ int main(int argc, char* argv[]){
 		entryDate = strtok(NULL," ");
 		exitDate = strtok(NULL," ");
 
-		record = init_record(recordID,patientFirstName,patientLastName,diseaseID,country,entryDate,exitDate);
+		record = init_record(recordID, patientFirstName, patientLastName, diseaseID, country, entryDate, exitDate);
 		
 		if(check_dublicates(record_list,record)){
 			perror("Dublicate found");
@@ -102,7 +97,7 @@ int main(int argc, char* argv[]){
 
 
 		delete_record(&record);
-		add(&record_list,recordID,patientFirstName,patientLastName,diseaseID,country,entryDate,exitDate);
+		add(&record_list, recordID, patientFirstName, patientLastName, diseaseID, country, entryDate, exitDate);
 		check_dates(record_list->record);///
 		line_count++;
 	}
@@ -116,29 +111,18 @@ int main(int argc, char* argv[]){
 
 	while(temp){
 
-		disease_hash_table = ht_insert(disease_hash_table,bucketSize,&(temp->record),get_diseaseID(&(temp->record)),diseaseHashtableNumOfEntries);
-		country_hash_table =  ht_insert(country_hash_table,bucketSize,&(temp->record),get_country(&(temp->record)),countryHashtableNumOfEntries);
+		disease_hash_table = ht_insert(disease_hash_table, bucketSize, &(temp->record), get_diseaseID(&(temp->record)), diseaseHashtableNumOfEntries);
+		country_hash_table =  ht_insert(country_hash_table, bucketSize, &(temp->record), get_country(&(temp->record)), countryHashtableNumOfEntries);
 		temp = temp->next;
 
 	}
-
-	/*ht_print(disease_hash_table,diseaseHashtableNumOfEntries);
-
-    printf("%s\n","###########" );
-
-    ht_print(country_hash_table,countryHashtableNumOfEntries);
-
-	print_list(record_list);*/
-
 	
 	char* command = NULL;
 	while(1){
-
-		//printf("%s\n", "type command to continue:");
 		
 		getline(&line,&line_size,stdin);
 
-		command = strtok(line," \n"); //\t?
+		command = strtok(line," \n"); 
 
 		if(!strcmp(command,"/globalDiseaseStats")){
 
@@ -148,17 +132,14 @@ int main(int argc, char* argv[]){
 			date1 = strtok(NULL," \n");
 
 			if(!date1)
-				globalDiseaseStats(disease_hash_table,diseaseHashtableNumOfEntries);
+				globalDiseaseStats(disease_hash_table, diseaseHashtableNumOfEntries);
 			else{
 
 				date2 = strtok(NULL," \n");
 				if(!date2){
 					perror("error");
-					//perror("No date2 provided");
-					break;
-					//exit(EXIT_FAILURE);
 				}else
-					globalDiseaseStats_dates(disease_hash_table,diseaseHashtableNumOfEntries,date1,date2);
+					globalDiseaseStats_dates(disease_hash_table, diseaseHashtableNumOfEntries, date1, date2);
 				
 			}
 
@@ -183,9 +164,6 @@ int main(int argc, char* argv[]){
 	
 			}else{
 				perror("error");
-				//perror("Not enough arguments provided");
-				break;
-				//exit(EXIT_FAILURE);
 			}
 
 
@@ -279,10 +257,8 @@ int main(int argc, char* argv[]){
 					    bucketSize, recordID, patientFirstName, patientLastName, diseaseID, country, entryDate, exitDate);
 				
 			}else{
-				//perror("error");
 				perror("Not enough arguments provided");
 				break;
-				//exit(EXIT_FAILURE);
 			}
 			
 		}else if(!strcmp(command,"/recordPatientExit")){
@@ -297,12 +273,9 @@ int main(int argc, char* argv[]){
 				recordPatientExit(&record_list, disease_hash_table,  diseaseHashtableNumOfEntries, country_hash_table,  countryHashtableNumOfEntries,  recordID, exitDate);
 			else{
 				perror("error");
-				//perror("Not enough arguments provided");
-				break;
-				//exit(EXIT_FAILURE);
 			}
 			
-		}else if(!strcmp(command,"/numCurrentPatients")){ //still ill patients have record.exitDate == "-"
+		}else if(!strcmp(command,"/numCurrentPatients")){
 			char* disease = NULL;
 
 			disease = strtok(NULL," \n");
@@ -316,7 +289,6 @@ int main(int argc, char* argv[]){
 			printf("%s\n", "exiting");
 			break;
 		}else{
-			//perror("error");
 			perror("Unknown command");
 			exit(EXIT_FAILURE);
 		}
