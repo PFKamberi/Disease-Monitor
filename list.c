@@ -72,28 +72,3 @@ void free_list(lnode *head) {
     }
     
 }
-
-
-
-/*int main(void){
-    
-    lnode* head;
-    init_list(&head);
-
-    Record r1, r2, r3; 
-    r1 = init_record("889","Mary","Smith","COVID-2019","China","25-1-2019","27-1-2019");
-    r2 = init_record("776","Larry","Jones","SARS-1","Italy","10-02-2019","-");
-    r3 = init_record("889","Larry","Jones","SARS-1","Italy","10-02-2019","-");
-        
-    add(&head,r1);
-    add(&head,r2);
-
-    if(check_dublicates(head,r3)) printf("%s\n", "dublicate found");
-
-    print_list(head);
-    free_list(head);
-  
-    return 0;
-}*/
-
-
