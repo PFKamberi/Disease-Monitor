@@ -21,41 +21,33 @@ void globalDiseaseStats(ht_bucket** hash_table, int entries){
 	for(int i = 0; i < entries; i++){
 
 		if(hash_table[i]->bucket){
+			
 			for(int j = 0; j < hash_table[i]->count; j++){// for each  entry in the first bucket
+				
+                		memmove(&entry, hash_table[i]->bucket + sizeof(ht_bucket*) + j*sizeof(Entry), sizeof(Entry));
+                		printf("%s ", *(entry.key));
+                		printf("%d\n", count_tree_nodes(entry.tree));
+            		}
+            		
+			tmp = hash_table[i];
+            		memmove(&next,tmp->bucket,sizeof(ht_bucket*));
+            		
+			while(next){
+            	
+				for(int j = 0; j < next->count; j++){// for each  entry in the first bucket
 
-                memmove(&entry, hash_table[i]->bucket + sizeof(ht_bucket*) + j*sizeof(Entry), sizeof(Entry));
-                //printf("%s\n", "*************************************************************************************************");
-                printf("%s ", *(entry.key));
-                printf("%d\n", count_tree_nodes(entry.tree));
-                //printf("%s\n", "*************************************************************************************************");
-                //print_tree(entry.tree,0);
-                //printf("%s\n", "*************************************************************************************************");
-            
-            }
-            tmp = hash_table[i];
-            memmove(&next,tmp->bucket,sizeof(ht_bucket*));
-            while(next){
-            	for(int j = 0; j < next->count; j++){// for each  entry in the first bucket
-
-                memmove(&entry, next->bucket + sizeof(ht_bucket*) + j*sizeof(Entry), sizeof(Entry));
-                //printf("%s\n", "*************************************************************************************************");
-                printf("%s ", *(entry.key));
-                printf("%d\n", count_tree_nodes(entry.tree));
-                //printf("%s\n", "*************************************************************************************************");
-                //print_tree(entry.tree,0);
-                //printf("%s\n", "*************************************************************************************************");
-            
-            	}
-            	memmove(&b,tmp->bucket,sizeof(ht_bucket*));
-                memmove(&next,b->bucket,sizeof(ht_bucket*));
-                tmp = b;
-            }
-
-
+                			memmove(&entry, next->bucket + sizeof(ht_bucket*) + j*sizeof(Entry), sizeof(Entry));
+                			printf("%s ", *(entry.key));
+                			printf("%d\n", count_tree_nodes(entry.tree));
+            			}
+            	
+			memmove(&b,tmp->bucket,sizeof(ht_bucket*));
+                	memmove(&next,b->bucket,sizeof(ht_bucket*));
+                	tmp = b;
+           		
+			}
 		}
 	}
-
-
 }
 
 void globalDiseaseStats_dates(ht_bucket** hash_table, int entries, char* date1, char* date2){
