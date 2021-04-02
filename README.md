@@ -2,11 +2,11 @@
 
 A program that manipulates, processes, records and answers queries related to virus infection cases. 
 
-##Application Interface:
+## Application Interface:
  
 The application is named diseaseMonitor and can be executed as follows: 
 
-**./diseaseMonitor -p patientRecordsFile –h1 diseaseHashtableNumOfEntries –h2 countryHashtableNumOfEntries –b bucketSize**
+** ./diseaseMonitor -p patientRecordsFile –h1 diseaseHashtableNumOfEntries –h2 countryHashtableNumOfEntries –b bucketSize **
 
 where:
     * The parameter diseaseHashtableNumOfEntries stands for the number of buckets of a hash table where patient information is stored based on the patient's disease/ viral infection.
