@@ -9,7 +9,7 @@ The application is named diseaseMonitor and can be executed as follows:
 ./diseaseMonitor -p patientRecordsFile –h1 diseaseHashtableNumOfEntries –h2 countryHashtableNumOfEntries –b bucketSize 
 
 where:
-    * The parameter diseaseHashtableNumOfEntries stands for the number of buckets of a hash table where patient information is stored based on the patient's disease/ viral infection.
+* The parameter diseaseHashtableNumOfEntries stands for the number of buckets of a hash table where patient information is stored based on the patient's disease/ viral infection.
     * The parameter countryHashtableNumOfEntries stands for the number of buckets of a hash table where patient information is stored based on the patient's country of origin.
     * The parameter bucketSize stands for the size in Bytes of each hash table bucket.
     * The parameter patientRecordsFile (or any other file name) is a file containing a collection of patient records to  be processed. Each line in the file describes an               infection case, the patient's name, the country of origin of the case,  the hospitalization date as well as the date when the patient was discharged. For instance if the         file contents  are:
