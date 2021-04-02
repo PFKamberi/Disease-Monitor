@@ -57,10 +57,9 @@ ht_bucket** ht_insert(ht_bucket** hash_table, int size, Record* record, char* ke
     int index;
 
     if(hash_table[hash_value]->count == 0){ // no entry yet in the bucket
-        //printf("%s\n", "1");
+
         hash_table[hash_value]->bucket = malloc(size);
 
-        //create new entry with the given key  
         entry.key = (char**)malloc(sizeof(char*)); 
         if(!entry.key){
             perror("Malloc error while allocating memory for entry's key");
@@ -69,7 +68,6 @@ ht_bucket** ht_insert(ht_bucket** hash_table, int size, Record* record, char* ke
         *(entry.key) = key;
         entry.tree = NULL;
         entry.tree = insert(entry.tree,record); //insert record in the enrty's tree
-        //print_tree(entry.tree,0);
 
         //insert new entry in the first available spot ( = 0)
         ht_bucket* next = NULL;
@@ -96,7 +94,6 @@ ht_bucket** ht_insert(ht_bucket** hash_table, int size, Record* record, char* ke
                 *(entry.key) = key;
                 entry.tree = NULL;
                 entry.tree = insert(entry.tree,record);
-                //print_tree(entry.tree,0);
                 
                 //insert new entry in the first available spot ( = count)
                 memmove(hash_table[hash_value]->bucket + sizeof(ht_bucket*) + hash_table[hash_value]->count*sizeof(Entry), &entry, sizeof(Entry));
@@ -107,7 +104,6 @@ ht_bucket** ht_insert(ht_bucket** hash_table, int size, Record* record, char* ke
 
                 memmove(&entry,hash_table[hash_value]->bucket + sizeof(ht_bucket*) + index*sizeof(Entry),sizeof(Entry)); // retrieve entry
                 entry.tree = insert(entry.tree,record); //insert record in the enrty's tree
-                //print_tree(entry.tree,0);
                 
                 memmove(hash_table[hash_value]->bucket + sizeof(ht_bucket*) + index*sizeof(Entry),&entry,sizeof(Entry)); //update entry
             }
@@ -146,7 +142,6 @@ ht_bucket** ht_insert(ht_bucket** hash_table, int size, Record* record, char* ke
 
                 memmove(&entry,temp->bucket + sizeof(ht_bucket*) + index*sizeof(Entry),sizeof(Entry)); // retrieve entry
                 entry.tree = insert(entry.tree,record); //insert record in the enrty's tree
-                //print_tree(entry.tree,0);
 
                 memmove(temp->bucket + sizeof(ht_bucket*) + index*sizeof(Entry),&entry, sizeof(Entry)); //update entry
 
@@ -163,7 +158,6 @@ ht_bucket** ht_insert(ht_bucket** hash_table, int size, Record* record, char* ke
                     *(entry.key) = key;
                     entry.tree = NULL;
                     entry.tree = insert(entry.tree,record);
-                    //print_tree(entry.tree,0);
 
                     //create a new bucket
                     ht_bucket* new_bucket = malloc(sizeof(ht_bucket));
@@ -188,7 +182,6 @@ ht_bucket** ht_insert(ht_bucket** hash_table, int size, Record* record, char* ke
                     *(entry.key) = key;
                     entry.tree = NULL;
                     entry.tree = insert(entry.tree,record); 
-                    //print_tree(entry.tree,0);
 
                     //insert new entry in the first available spot ( = count)
                     memmove(temp->bucket + sizeof(ht_bucket*) + temp->count*sizeof(Entry), &entry, sizeof(Entry));
@@ -327,53 +320,4 @@ void ht_print(ht_bucket** hash_table, int size){
     }
 
 }
-
-/*int main(void){
-
-    lnode* head;
-    init_list(&head);
-    
-    add(&head,"77","Larry","Jones","AR-S1S","China","11-02-1993","-");
-    add(&head,"125","Larry","Jones","SARS-1","Italy","10-02-2019","-");
-    add(&head,"0","Larry","Jones","RASS-1","Italy","1-02-2009","-");
-    add(&head,"15","Larry","Jones","SAR-S1","Italy","5-02-2010","-");
-    add(&head,"776","Larry","Jones","SRAS-1","Greece","11-02-2003","-");
-
-
-    lnode * temp;
-    temp = head;
-    int size = 50;
-    int buckets = 10;
-    ht_bucket** ht1 = ht_init(buckets);
-    ht_bucket** ht2 = ht_init(buckets);
-    ht1 =  ht_insert(ht1,size,&(temp->record),get_diseaseID(&(temp->record)),buckets);
-    ht2 =  ht_insert(ht2,size,&(temp->record),get_country(&(temp->record)),buckets);
-    temp = temp->next;
-    
-    while(temp){
-        ht1 =   ht_insert(ht1,size,&(temp->record),get_diseaseID(&(temp->record)),buckets);
-        ht2 =  ht_insert(ht2,size,&(temp->record),get_country(&(temp->record)),buckets);
-        
-        temp = temp->next;
-    }
-
-    ht_print(ht1,buckets);
-
-    printf("%s\n","###########" );
-
-    ht_print(ht2,buckets);
-
-    //print_list(head);
-
-    free_ht(ht1,buckets);
-    free_ht(ht2,buckets);
-
-    //free(*ht1);
-    free_list(head);
-
-
-    return 0;
-
-}*/
-
 
