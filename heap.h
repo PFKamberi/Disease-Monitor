@@ -1,5 +1,3 @@
-
-
 #ifndef _HEAP
 #define _HEAP
 
