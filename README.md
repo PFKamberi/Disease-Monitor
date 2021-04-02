@@ -28,7 +28,24 @@ where:
    7. exitDate: the date when the patient was discharged from the hospital.ημερομηνία που βγήκε ο ασθενής από το νοσοκομείο.  The date must have the following form 
          DD-MM-YYYY. In case the a is still hospitalized (i.e there is no actual exitDate), the exitDate is denoted by a dash “-”.
 
-    
+As the application starts, the patientRecordsFile is opened, read record by record, each record is checked for its validation and the data structures used for query answering are initialized and stored in memory. When the application finishes the patientRecordsFile processing, it waits for user input. The user can give the following commands (arguments enclosed in [ ] are optional):
+
+* **/globalDiseaseStats \[date1 date2\]**
+The application prints for each virus the number of viral infection cases recorded in the system. If the arguments date1 and date2 are given, then the application prints for each type of virus the number of viral infections recorded in the system in the time period between date1 and date2. If date1 argument is given, then date2 argument must be given as well, otherwise an error message appears.
+* **/diseaseFrequency virusName \[country\] date1 date2**
+If country argument is not given, then the application prints for virusName infection the number of viral infection cases recorded in the system in the time period between date1 and date2. If country argument is given, the application prints for the virusName infection, the number of viral infection cases found in this particular country and recorded in the system in the time period between date1 and date2.
+* **/topk-Diseases k country \[date1 date2\]**
+The application prints for the top k viral infections with the most recorded cases in the country in the time period between date1 and date2, in case date1 and date2 arguments are given.If date1 argument is given, then date2 argument must be given as well, otherwise an error message appears.
+* **/topk-Countries k disease \[date1 date2\]**
+The application prints for disease virus the top k countries with the most viral infection cases from disease virus.
+* **/insertPatientRecord recordID patientFirstName patientLastName diseaseID entryDate \[exitDate\]**
+The application enters a new record in the system. ExitDate is optional.
+* **/recordPatientExit recordID exitDate**
+The application adds an exitDate into the record with ID recordID.
+* **/numCurrentPatients \[disease\]**
+If disease is given, the application prints the number of patients that are still hospitalized with due to disease viral infection. If disease argument is not given, the application prints for each virus the records of the patients that are still hospitalized.
+* **/exit**
+The application terminates.
                 
                 
       
