@@ -9,6 +9,6 @@
 #define _AUXILARY
 
 
-int check_dates(/*char**/Record );
+int check_dates(Record );
 
 #endif
