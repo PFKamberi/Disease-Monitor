@@ -1,6 +1,6 @@
 # Disease-Monitor
 
-A program that manipulates, processes, records and answers queries related to virus infection cases. 
+A program that manipulates, processes, records and answers queries related to virus infection cases, implemented in C. 
 
 ## Application Interface:
  
@@ -46,74 +46,13 @@ The application adds an exitDate into the record with ID recordID.
 If disease is given, the application prints the number of patients that are still hospitalized with due to disease viral infection. If disease argument is not given, the application prints for each virus the records of the patients that are still hospitalized.
 * **/exit** <br/>
 The application terminates.
+
+These commands are implemented in the files query_functions.c and query_functions.h
                 
-<!---
-Δομές δεδομένων
-Για την υλοποίηση της εφαρμογής μπορείτε να χρησιμοποιήσετε C ή C++. Δεν μπορείτε να χρησιμοποιήσετε
-όμως την Standard Template Library (STL). Όλες οι δομές δεδομένων θα πρέπει να υλοποιηθούν από εσάς.
-Βεβαιωθείτε πως δεσμεύετε μόνο όση μνήμη χρειάζεται, π.χ. η ακόλουθη τακτική δε συνιστάται:
-int diseases[512];// store up to 512 diseases, but really we don’t know how many
-Επίσης βεβαιωθείτε πως απελευθερώνετε τη μνήμη σωστά κατά την εκτέλεση του προγράμματός σας αλλά
-και κατά την έξοδο.
-Για να ολοκληρώσετε την άσκηση θα χρειαστεί, μεταξύ άλλων, να υλοποιήσετε τις εξής δομές δεδομένων.
-1. Δύο πίνακες κατακερματισμού (diseaseHashTable και countryHashTable) που με index
-προσφέρουν γρήγορες προσπελάσεις σε στοιχεία ασθενών ανά κρούσμα και κρουσμάτων ανά χώρα. Οι
-πίνακες κατακερματισμού θα χρησιμοποιούν κουβάδες για να εξυπηρετήσουν diseases/countries
-που παρουσιάζουν «σύγκρουση»/collision (δηλαδή, το αποτέλεσμα της συνάρτησης κατακερματισμού
-οδηγεί στο ίδιο στοιχείο του hash table). Αν χρειάζονται πιο πολλοί από ένα κουβάδες για να
-αποθηκευτούν δεδομένα, δημιουργούνται δυναμικά και διατάσσονται σε μια λίστα.
-2. Για κάθε disease που γίνεται hashed σε ένα στοιχείο του diseaseHashTable, υπάρχει ένα σύνολο
-από εγγραφές ασθενών που έχουν νοσηλευτεί λόγω της ίωσης disease. Αυτό το σύνολο τοποθετείται
-σε ένα balanced binary search tree. Κάθε κόμβος του δέντρου παρέχει στοιχεία (η προσπέλαση σε
-στοιχεία, δείτε Σχήμα 1) μιας εγγραφής ασθενούς. Το δέντρο θα πρέπει να είναι ταξινομημένο με βάση
-την ημερομηνία εισαγωγής του ασθενούς στο νοσοκομείο.
-3. Για κάθε country που γίνεται hashed σε ένα στοιχείο του countryHashTable, υπάρχει ένα σύνολο
-από εγγραφές ασθενών που έχουν νοσηλευτεί στην χώρα country. Αυτό το σύνολο τοποθετείται σε
-ένα balanced binary search tree όπου κάθε κόμβος του δέντρου παρέχει στοιχεία (η προσπέλαση σε
-στοιχεία) εγγραφής ασθενούς. Το δέντρο θα πρέπει να είναι ταξινομημένο με βάση την ημερομηνία
-εισαγωγής του ασθενούς στο νοσοκομείο.
-Επειδή θα υπάρχει επικάλυψη μεταξύ των εγγραφών στα δέντρα που προσπελάζονται μέσω
-diseaseHashTable και countryHashTable θα πρέπει να φροντίζετε να μην υπάρχει σπατάλη
-στην μνήμη, δηλαδή μια εγγραφή θα πρέπει να αποθηκεύεται μόνο μια φορά στην μνήμη και σε
-οποιαδήποτε δομή δεδομένων χρειάζεται πρόσβαση στην εγγραφή, η πρόσβαση θα γίνεται μέσω
-pointers. (δείτε Σχήμα 1 για μια πιθανή πρόταση του layout κάποιων δομών δεδομένων).
-4. Για την εντολή topk-Diseases, το πρόγραμμα σας θα πρέπει να χτίζει on-the-fly ένα binary heap
-(i.e., max heap) όπου κάθε κόμβος θα κρατάει το σύνολο των κρουσμάτων μιας ίωσης και θα σας
-βοηθά να βρίσκετε εύκολα ποιες είναι οι ιώσεις που αποτελούν το top k των κρουσμάτων στη χώρα.
-Επίσης για την εντολή topk-Countries, το πρόγραμμά σας θα πρέπει να χτίζει on-the-fly ένα binary
-heap (i.e., max heap) όπου κάθε κόμβος θα κρατάει το σύνολο κρουσμάτων μιας χώρας της
-συγκεκριμένης ίωσης και θα σας βοήθα να βρίσκετε εύκολα ποιες είναι οι χώρες που έχουν εμφανίσει
-το top k των κρουσμάτων της συγκεκριμένη ίωσης.
-5. Οποιαδήποτε άλλη βοηθητική δομή δεδομένων χρειαστείτε για τις ανάγκες της εργασίας
---->
-     
-<!---
-Κ24 - Προγραμματισμός Συστήματος - 1η Εργασία
-Καμπέρη Πέτρος - Φώτης
-Α.Μ. 1115201700043
+## Data Structures
 
-Α) Κατά την υλοποίηση της άσκησης χρησιμοποιήθηκαν οι εξής δομές δεδομένων:
-	1) Μια δομή συνδεδεμένης λίστας στην οποία αποθηκεύονται οι εγγραφές που διαβάζονται από το αρχείο εισόδου (αρχεία list.c, list.h).
-	2) Ένα avl tree που κάθε κόμβος του περιέχει έναν δείκτη σε εγγραφή που βρίσκεται στην δομή 1) (αρχεία stack.c, stack.h).
-	3) Μια στοίβα που που περιέχει δείκτες σε avl tree και χρησιμοποιείται σε κάποιες βοηθητικές συναρτήσεις για την μη αναδρομική διάσχιση 
-	   του αντίστοιχου δέντρου (αρχεία tree.c, tree.h).
-	4)Ένας πίνακας κατακερματισμού που περιέχει κάδους με καταχωρήσεις της μορφής <char** key, avl tree node root>, όπου το key μπορεί να
-	  είναι είτε diseaseID, είτε country ανάλογα με τον πίνακα κατακερματισμού και root είναι ένας δείκτης σε ρίζα της δομής 2). Ο δείκτης του 
-	  επόμενου κάδου σε περιπτώσεις που προκύπτουν αλυσίδες υπερχείλισης τοποθετείται κάθε φορά στην αρχή του κάδου πριν την εγγραφή 
-	  των καταχωρήσεων (αρχεία hash_table.c, hash_table.h).
-	5)Ένας σωρός μεγίστου στον οποίο αποθηκεύονται στοιχεία της μορφής <char* key, int count> όπου το key μπορεί να
-          είναι είτε diseaseID, είτε country και count το πλήθος των κρουσμάτων και χρησιμοποιείται/κατασκευάζεται on the fly για τις εντολές topk
-	  (αρχεία heap.c, heap.h).
-
-
-Β) Τα  ερωτήματα που μπορεί να υποβάλει ο χρήστης υλοποιούνται από συναρτήσεις που βρίσκονται στο αρχείο query_functions.c και η κύρια εφαρμογή βρίσκεται 
-   στο αρχείο diseaseMonitor.c. Σε όλη την έκταση της εργασίας υπάρχουν σχόλια στα σημεία που κρίθηκε απαραίτητο. Επίσης, για όλες τις δομές δεδομένων 
-   -πλην της στοίβας- έχουν δημιουργηθεί συναρτήσεις εκτύπωσης, ενώ επιπλέον υπάρχουν και σχολιασμένες συναρτήσεις main που είχαν χρησιμοποιηθεί κατά 
-   την δημιουργία και τον έλεγχο των αντίστοιχων δομών. Για την μεταγλώττιση παρέχεται και το ζητούμενο Makefile, ενώ η εφαρμογή χρησιμοποιείται όπως ζητήθηκε
-
-   (./diseaseMonitor -p patientRecordsFile –h1 diseaseHashtableNumOfEntries –h2 countryHashtableNumOfEntries –b bucketSize).
-
-
---->
-                
-      
+1. A linked list where the patients' records are stored after they are read from the input file (files list.c, list.h).
+2. Two hash tables named diseaseHashTable and countryHashTable using an index in order to quickly access patients' recored based on the disease or the country of origin. Each hash table entry has has the following form <char** key, avl tree node root>, where key can be either a disease name in the diseaseHashTable or a country name in countryHashTable and root is a pointer to data structure 3. The hash tables use buckets in case of collisions. If more than one buckets are needed in order to store the records, then the buckets are stored in a linked list (chaining). The pointer to the next bucket in this linked list is placed at the beggining of the bucket, before the entries begin to be stored (files hash_table.c, hash_table.h).
+3. For each disease being hashed at diseaseHashTable there is a set of entries of patients who have been hospitalized due to the disease. Similarly, for each country being hashed at countryHashTablethe there is a set of entries of patients who have been hospitalized at this particular country due to various diseases. In either case, this set of entries is stored in a avl tree. Each tree node contains a pointer to a patient record stored in data structure 1. The avl tree is ordered based on  the patient's hospitalization date.(files tree.c and tree.h).
+4. A stack storing pointers to avl trees, which is used in some auxilary functions in order to avoid recursive traversals of avl trees (αρχεία stack.c, stack.h). 
+5. For topk-Diseases command, the application builds on-the-fly a binary max-heap where each node holds the total number of viral infection cases of each disease, in order to easily find which are the top k diseases in a country. Similarly, for topk-Countries command, the application builds on-the-fly a binary max-heap where each node holds the total number of viral infection of a particular disease in order to easily find which are the top k countries with the most viral infections of thiw particular disease (αρχεία heap.c, heap.h).
