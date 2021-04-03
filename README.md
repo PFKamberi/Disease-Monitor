@@ -35,9 +35,9 @@ The application prints for each virus the number of viral infection cases record
 * **/diseaseFrequency virusName \[country\] date1 date2** <br/>
 If country argument is not given, then the application prints for virusName infection the number of viral infection cases recorded in the system in the time period between date1 and date2. If country argument is given, the application prints for the virusName infection, the number of viral infection cases found in this particular country and recorded in the system in the time period between date1 and date2.
 * **/topk-Diseases k country \[date1 date2\]** <br/>
-The application prints the top k viral infections with the most recorded cases in the country in the time period between date1 and date2, in case date1 and date2 arguments are given. If date1 argument is given, then date2 argument must be given as well, otherwise an error message appears.
+The application prints the top k viral infections with the most recorded cases in the country in the time period between date1 and date2, in case date1 and date2 arguments are given. If date1 argument is given, then date2 argument must be given as well, otherwise an error message appears. If date1 and date2 are not given, then the application prints all the diseases recorded in the country in descending order of viral infection cases.
 * **/topk-Countries k disease \[date1 date2\]** <br/>
-The application prints for disease virus the top k countries with the most viral infection cases from disease virus.
+The application prints for disease virus the top k countries with the most viral infection cases from disease virus in the time period between date1 and date2, in case date1 and date2 arguments are given. If date1 argument is given, then date2 argument must be given as well, otherwise an error message appears. If date1 and date2 are not given, then the application prints all the countries where the disease has been recorded in descending order of viral infection cases.
 * **/insertPatientRecord recordID patientFirstName patientLastName diseaseID entryDate \[exitDate\]**
 The application enters a new record in the system. ExitDate is optional.
 * **/recordPatientExit recordID exitDate** <br/>
