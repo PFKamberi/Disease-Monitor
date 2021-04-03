@@ -14,9 +14,9 @@ where:
 * The parameter bucketSize stands for the size in Bytes of each hash table bucket.
 * The parameter patientRecordsFile (or any other file name) is a file containing a collection of patient records to be processed. Each line in the file describes an               infection case, the patient's name, the country of origin of the case, the hospitalization date as well as the date when the patient was discharged from the hospital. For       instance if the file contents  are: <br/>
   <br/>
-                <center>889 Mary Smith COVID-2019 China 25-1-2019 27-1-2019<br/>
+                889 Mary Smith COVID-2019 China 25-1-2019 27-1-2019<br/>
                 776 Larry Jones SARS-1 Italy 10-02-2003 –<br/>
-                125 Jon Dupont H1N1 USA 12-02-2016 15-02-2016<br/></center>
+                125 Jon Dupont H1N1 USA 12-02-2016 15-02-2016<br/>
    <br/>   
    then there are three records describing three viral infection cases in three different countries (China, Italy, USA). In the second record there is no discharge date            (which implies that the patient is still hospitalized). In particular, a patient record is an ASCII text line consisting of the following elements:
       
@@ -26,10 +26,9 @@ where:
    4. diseaseID: a string consisting of letters, digits and in some cases dashes “-”, without whitespaces.
    5. country: a letter string without whitespaces.
    6. entryDate: the patient's hospitalization date. The date must have the following form DD-MM-YYYY.
-   7. exitDate: the date when the patient was discharged from the hospital.ημερομηνία που βγήκε ο ασθενής από το νοσοκομείο.  The date must have the following form 
-         DD-MM-YYYY. In case the a is still hospitalized (i.e there is no actual exitDate), the exitDate is denoted by a dash “-”.
+   7. exitDate: the date when the patient was discharged from the hospital. The date must have the following form DD-MM-YYYY. In case the a is still hospitalized (i.e there is         no actual exitDate), the exitDate is denoted by a dash “-”.
 
-As the application starts, the patientRecordsFile is opened, read record by record, each record is checked for its validation and the data structures used for query answering are initialized and stored in memory. When the application finishes the patientRecordsFile processing, it waits for user input. The user can give the following commands (arguments enclosed in [ ] are optional):
+As the application starts, the patientRecordsFile is opened, read record by record, each record is checked for its validation and the data structures used for query answering are initialized and stored in memory. When the application finishes the patientRecordsFile processing, it waits for user input. The user can give the following commands (arguments enclosed in \[ \] are optional):
 
 * **/globalDiseaseStats \[date1 date2\]** <br/>
 The application prints for each virus the number of viral infection cases recorded in the system. If the arguments date1 and date2 are given, then the application prints for each type of virus the number of viral infections recorded in the system in the time period between date1 and date2. If date1 argument is given, then date2 argument must be given as well, otherwise an error message appears.
