@@ -1,3 +1,4 @@
+![Στιγμιότυπο οθόνης 2021-04-03 154133](https://user-images.githubusercontent.com/72415225/113478790-c3bd5280-9493-11eb-987c-5dc879fbff0f.png)
 # Disease-Monitor
 
 A program that manipulates, processes, records and answers queries related to virus infection cases, implemented in C. 
